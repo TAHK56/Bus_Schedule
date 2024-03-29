@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route details</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class="text-center">Route number: <span data-th-text="${route.getName()}"></span></h1>
+<div class="container">
+    <div class="text-info container-table">
+        <em data-th-text="${route.getDepartureStation().getLocation().getName()}"></em>&dash;
+        <em data-th-text="${route.getArrivalStation().getLocation().getName()}"></em><br>
+        <em data-th-text="${route.getDepartureTime()}"></em>&dash;
+        <em data-th-text="${route.getArrivalTime()}"></em><br>
+    </div>
+    <strong>Path:</strong>
+    <ul class="list-group">
+        <li class="list-group-item" data-th-with="departure=${route.getDepartureStation()}">
+            <em data-th-text="${departure.getLocation().getName()}"></em> Departure time:
+            <time data-th-text="${route.getDepartureTime()}"></time>
+            <br>
+            <small data-th-text="${departure.getName() + ','+ departure.getStreet() + ','
+            + departure.getNumberStreet()}"></small>
+        </li>
+        <li class="list-group-item" data-th-each="station: ${route.getSchedules()}"
+            data-th-with="st=${station.getStation()}">
+            <em data-th-text="${st.getLocation().getName()}"></em> Arrival time:
+            <time data-th-text="${station.getArrivalTime()}"></time>&dash;Departure time:
+            <time data-th-text="${station.getDepartureTime()}"></time>
+            <br>
+            <small data-th-text="${st.getName() + ','+ st.getStreet() + ',' + st.getNumberStreet()}"></small>
+        </li>
+        <li class="list-group-item" data-th-with="arrival=${route.getArrivalStation()}">
+            <em data-th-text="${arrival.getLocation().getName()}"></em> Arrival time:
+            <time data-th-text="${route.getArrivalTime()}"></time>
+            <br>
+            <small data-th-text="${arrival.getName() + ','+ arrival.getStreet() + ','
+            + arrival.getNumberStreet()}"></small>
+        </li>
+    </ul>
+    <strong>Bus Info:</strong><br>
+    <ul class="list-group">
+        <li class="list-group-item">Bus model: <em data-th-text="${route.getBus().getModel()}"></em></li>
+        <li class="list-group-item">Bus number: <em data-th-text="${route.getBus().getBusNumber()}"></em></li>
+        <li class="list-group-item">Seats: <em data-th-text="${route.getBus().getSeats()}"></em></li>
+        <li class="list-group-item"><strong>Free seats: <em>5</em></strong></li>
+        <li class="list-group-item"><strong>Cost: <em>100&#8372;</em></strong></li>
+    </ul>
+    <form method="post" data-th-action="@{/tickets/fromRoute/create/new_ticket}">
+        <input type="hidden" name="routeId" data-th-value="${route.getId()}">
+        <div class="container">
+            <button type="submit" class="btn btn-primary">Buy ticket</button>
+        </div>
+    </form>
+    <a data-th-href="@{/routes}">Back to routes</a>
+</div>
+</body>
+</html>

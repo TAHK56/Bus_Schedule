@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket info</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class="text-center">Ticket Details</h1>
+<div class="container">
+    <h2>General Info:</h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Ticket Number: <em data-th-text="${ticket.getId()}"></em></strong><br>
+            <strong>Bus company: <b>Bus for everyone</b></strong><br>
+            <strong>Passenger:
+                <em data-th-text="${ticket.getUser().getFirstName()}"></em>&nbsp;
+                <em data-th-text="${ticket.getUser().getLastName()}"></em>
+            </strong>
+        </li>
+    </ul>
+    <hr>
+    <h2>Trip details:</h2>
+    <ul class="list-group">
+        <li class="list-group-item">Route Number: <em data-th-text="${ticket.getRoute().getName()}"></em></li>
+        <li class="list-group-item">From-To:
+            <em data-th-text="${ticket.getRoute().getDepartureStation().getLocation().getName()}"></em>&dash;
+            <em data-th-text="${ticket.getRoute().getArrivalStation().getLocation().getName()}"></em>
+        </li>
+        <li class="list-group-item">Bus:
+            <em data-th-text="${ticket.getRoute().getBus().getModel()}"></em>,
+            <em data-th-text="${ticket.getRoute().getBus().getBusNumber()}"></em>
+        </li>
+        <li class="list-group-item">Place from:
+            <b data-th-text="${ticket.getScheduleDepartureStation().getStation().getLocation().getName()}"></b>(
+            <b data-th-text="${ticket.getScheduleDepartureStation().getStation().getName()}"></b>,
+            <b data-th-text="${ticket.getScheduleDepartureStation().getStation().getStreet()}"></b>,
+            <b data-th-text="${ticket.getScheduleDepartureStation().getStation().getNumberStreet()}"></b>)
+        </li>
+        <li class="list-group-item">Place to:
+            <b data-th-text="${ticket.getScheduleArrivalStation().getStation().getLocation().getName()}"></b>(
+            <b data-th-text="${ticket.getScheduleArrivalStation().getStation().getName()}"></b>,
+            <b data-th-text="${ticket.getScheduleArrivalStation().getStation().getStreet()}"></b>,
+            <b data-th-text="${ticket.getScheduleArrivalStation().getStation().getNumberStreet()}"></b>)
+        </li>
+        <li class="list-group-item">Trip Date: <strong data-th-text="${ticket.getTripDate()}"></strong></li>
+        <li class="list-group-item">Trip Time:
+            <strong data-th-text="${ticket.getScheduleDepartureStation().getDepartureTime()}"></strong>&dash;
+            <strong data-th-text="${ticket.getScheduleArrivalStation().getArrivalTime()}"></strong>
+        </li>
+    </ul>
+    <hr>
+    <h2>Additional info</h2>
+    <ul class="list-group">
+        <li class="list-group-item">Cost: <em data-th-text="${ticket.getPrice()}"></em>&#8372;</li>
+        <li class="list-group-item">Date of deal: <em data-th-text="${ticket.getSalesTime()}"></em></li>
+    </ul>
+    <a href="http://localhost:8080">Back to main page</a><br>
+    <a data-th-href="@{/tickets/list}">Back to tickets</a>
+</div>
+</body>
+</html>

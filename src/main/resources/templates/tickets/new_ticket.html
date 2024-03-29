@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill ticket</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class="text-center">Create ticket</h1>
+<form method="post" th:action="@{/tickets/create}">
+    <strong class="text-center">Passenger</strong>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">First Name</span>
+        <input type="text" class="form-control" placeholder="First Name" aria-label="First Name" name="firstName"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Last Name</span>
+        <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" name="lastName"
+               aria-describedby="basic-addon2">
+    </div>
+    <strong class="text_center">Ticket details</strong>
+    <div class="input-group mb-3">
+        <input type="hidden" th:value="${routeId}" name="routeId">
+        <label for="departureStation" class="input-group-text" id="basic-addon3">Departure Station
+            <select name="departureStation" id="departureStation" class="form-select">
+                <option th:each="station: ${stations}" th:value="${station.getId()}"
+                        th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
+            </select>
+            <label for="arrivalStation" class="input-group-text" id="basic-addon4">Arrival Station</label>
+            <select name="arrivalStation" id="arrivalStation" class="form-select">
+                <option th:each="station: ${stations}" th:value="${station.getId()}"
+                        th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
+            </select>
+        </label>
+
+    </div>
+    <div class="input-group mb-3">
+        <label for="price" class="input-group-text" id="basic-addon5">Price:</label>
+        <input type="number" step="0.01" min="0" class="form-control" name="price" id="price">
+        <label for="tripDate" class="input-group-text" id="basic-addon6">Trip date:</label>
+        <input type="date" class="form-control" name="tripDate" id="tripDate">
+    </div>
+    <div class="container">
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </div>
+</form>
+</body>
+</html>

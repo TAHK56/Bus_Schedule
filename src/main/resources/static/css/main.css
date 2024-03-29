@@ -1,0 +1,12 @@
+body {
+    background-color: antiquewhite;
+}
+
+form {
+    margin: 0 25% 0 25%;
+}
+
+.logo {
+    display: block;
+    float: left;
+}

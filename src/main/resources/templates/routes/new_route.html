@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New route</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <h1 class="text-center"> Create new route(s)</h1>
+    <a data-th-href="@{/routes}">All routes</a>
+    <form method="post" data-th-action="@{/routes/create}">
+        <label>
+             Bus Number:<br>
+            <input type="text" name="busNumber">
+        </label>
+        <label>
+            Route Name:<br>
+            <input type="text" name="routeName">
+        </label>
+        <label>
+            Departure Station:<br>
+            <input type="text" name="departureStation">
+        </label>
+        <label>
+            Arrival Station:<br>
+            <input type="text" name="arrivalStation">
+        </label>
+        <label>
+            Departure Time:<br>
+            <input type="time" name="departureTime">
+        </label>
+        <label>
+            Arrival Time:<br>
+            <input type="time" name="arrivalTime">
+        </label><br>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

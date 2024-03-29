@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add bus</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <h1 class="text-center">Add new buse(s)</h1>
+    <form method="post" th:action="@{/buses/create}">
+        <div class="mb-3">
+            <label for="model" class="form-label">Model</label>
+            <input type="text" class="form-control" id="model" name="model">
+        </div>
+        <div class="mb-3">
+            <label for="number" class="form-label">Sign number</label>
+            <input type="text" class="form-control" id="number" name="busNumber">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="seats">Seats number</label>
+            <input type="number" class="form-control" id="seats" min="10" name="seats">
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <h1 class="text-center">Tickets</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Ticket Number</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Route</th>
+                <th scope="col">Sales Time</th>
+                <th scope="col">Trip Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ticket: ${tickets}">
+                <td>
+                    <a data-th-href="@{/tickets/{ticketId}(ticketId=${ticket.getId()})}" th:text="${ticket.getId()}"></a>
+                </td>
+                <td>
+                    <span th:text="${ticket.getUser().getFirstName()}"></span>
+                    <span th:text="${ticket.getUser().getLastName()}"></span>
+                </td>
+                <td th:text="${ticket.getRoute().getName()}"></td>
+                <td th:text="${ticket.getSalesTime()}"></td>
+                <td th:text="${ticket.getTripDate()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

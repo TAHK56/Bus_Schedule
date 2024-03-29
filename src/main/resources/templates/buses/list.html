@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buses</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class="text-center">Buses</h1>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Bus Model</th>
+        <th scope="col">Bus Sign Number</th>
+        <th scope="col">Bus Seats</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bus: ${buses}">
+        <td><a th:href="@{/buses/{busId}(busId=${bus.getId()})}" th:text="${bus.getBusNumber()}"></a></td>
+        <td th:text="${bus.getModel()}"></td>
+        <td th:text="${bus.getSeats()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

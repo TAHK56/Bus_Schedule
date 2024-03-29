@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routes</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class="text-center">Schedule Routes</h1>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Route Number</th>
+        <th scope="col">Departure Station</th>
+        <th scope="col">Bus Stop</th>
+        <th scope="col">Arrival Station</th>
+        <th scope="col">ArrivalTime</th>
+        <th scope="col">DepartureTime</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr data-th-each="route: ${routes}">
+        <td>
+            <a data-th-href="@{/routes/{routeId}(routeId=${route.getId()})}" data-th-text="${route.getName()}"></a>
+        </td>
+        <td data-th-text="${route.getDepartureStation().getLocation().getName()}"></td>
+        <td>
+                <span data-th-each="schedule: ${route.getSchedules()}">
+                    <em data-th-text="${schedule.getStation().getLocation().getName()}"></em><br>
+                </span>
+        </td>
+        <td data-th-text="${route.getArrivalStation().getLocation().getName()}"></td>
+        <td data-th-text="${route.getArrivalTime()}"></td>
+        <td data-th-text="${route.getDepartureTime()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

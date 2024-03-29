@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header>
+        <strong class="logo"><a href="http://localhost:8080"><img src="/img/bus.jpg"  alt="Logo"></a></strong>
+        <h1 class="text-center">Find routes</h1>
+        <h2 class="text-center font-monospace"><a data-th-href="@{/routes}">Schedule all routes</a></h2>
+    </header>
+    <main>
+        <form  action="routes/list" method="get" class="container">
+            <div class="row">
+                <div class="col">
+                   <label for="from">From:
+                       <input type="text" name="from" list="datalistFrom" class="form-control" placeholder="From" id="from" aria-label="From">
+                       <datalist id="datalistFrom">
+                           <option data-th-each="location: ${locations}" data-th-value="${location.getName()}">
+                       </datalist>
+                   </label>
+                </div>
+                <div class="col">
+                    <label for="to">To:
+                        <input type="text" class="form-control" list="datalistArrival" placeholder="To" aria-label="To" name="to" id="to">
+                        <datalist id="datalistArrival">
+                            <option data-th-each="location: ${locations}" data-th-value="${location.getName()}">
+                        </datalist>
+                    </label>
+
+                </div>
+                <div class="col">
+                    <label for="date">Date:
+                        <input type="datetime-local" name="date" class="form-control" id="date"
+                               data-th-min="${#temporals.createNow()}" data-th-max="${#temporals.createNow().plus(T(java.time.Period).ofMonths(1))}">
+                    </label>
+                </div>
+                <div class="col">
+                    <label for="find">Find:<button type="submit" id="find" class="form-control">Find</button></label>
+                </div>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

@@ -40,6 +40,7 @@ CREATE TABLE Schedule
 ScheduleId INT NOT NULL AUTO_INCREMENT,
 RouteId INT NOT NULL,
 StationId INT NOT NULL,
+OrderRoute INT NOT NULL,
 DepartureTime TIME,
 ArrivalTime TIME,
 CONSTRAINT PK_Schedule PRIMARY KEY (ScheduleId)
@@ -113,3 +114,4 @@ FOREIGN KEY (ScheduleDepartureStationId) REFERENCES Schedule (ScheduleId) ON DEL
 
 ALTER TABLE Ticket ADD CONSTRAINT FK_TicketRouteId
 FOREIGN KEY (RouteId) REFERENCES Route (RouteId) ON DELETE NO ACTION ON UPDATE NO ACTION;
+

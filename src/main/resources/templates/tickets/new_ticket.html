@@ -7,6 +7,9 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}">
     <link rel="stylesheet" href="/css/main.css">
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/dist/jquery.min.js}"></script>
+
 </head>
 <body>
 <h1 class="text-center">Create ticket</h1>
@@ -25,18 +28,20 @@
     <strong class="text_center">Ticket details</strong>
     <div class="input-group mb-3">
         <input type="hidden" th:value="${routeId}" name="routeId">
-        <label for="departureStation" class="input-group-text" id="basic-addon3">Departure Station
-            <select name="departureStation" id="departureStation" class="form-select">
-                <option th:each="station: ${stations}" th:value="${station.getId()}"
-                        th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
-            </select>
-            <label for="arrivalStation" class="input-group-text" id="basic-addon4">Arrival Station</label>
-            <select name="arrivalStation" id="arrivalStation" class="form-select">
-                <option th:each="station: ${stations}" th:value="${station.getId()}"
-                        th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
-            </select>
-        </label>
-
+        <label for="departureStation" class="input-group-text" id="basic-addon3">Departure Station</label>
+        <select name="departureStation" id="departureStation" class="form-select" th:inline="javascript">
+            <option value="" class="default" th:selected>(select)</option>
+            <option th:each="schedule: ${schedules}" th:with="station=${schedule.getStation()}"
+                    th:value="${station.getId()}"
+                    th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
+        </select>
+        <label for="arrivalStation" class="input-group-text" id="basic-addon4">Arrival Station</label>
+        <select name="arrivalStation" id="arrivalStation" class="form-select">
+            <option value="" class="default" th:selected>(select)</option>
+            <option th:each="schedule: ${schedules}" th:with="station=${schedule.getStation()}"
+                    th:value="${station.getId()}"
+                    th:text="${#strings.concat(station.getName(), ',', station.getStreet(), ',', station.getNumberStreet())}"></option>
+        </select>
     </div>
     <div class="input-group mb-3">
         <label for="price" class="input-group-text" id="basic-addon5">Price:</label>

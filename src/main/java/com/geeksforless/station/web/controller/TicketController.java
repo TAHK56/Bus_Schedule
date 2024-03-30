@@ -39,7 +39,7 @@ public class TicketController {
     @PostMapping("fromRoute/create/new_ticket")
     public String getNewTicketPage(@RequestParam("routeId") int routeId, Model model) {
         model.addAttribute("routeId", routeId);
-        model.addAttribute("stations", stationService.findAllRouteStation(routeId));
+        model.addAttribute("schedules", scheduleService.findAllRouteStopsInOrder(routeId));
         return "tickets/new_ticket";
     }
 

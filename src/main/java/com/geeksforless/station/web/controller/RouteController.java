@@ -1,8 +1,9 @@
 package com.geeksforless.station.web.controller;
 
-import com.geeksforless.station.web.dto.RouteDto;
 import com.geeksforless.station.persistence.entity.schedule.Route;
 import com.geeksforless.station.service.RouteService;
+import com.geeksforless.station.service.ScheduleService;
+import com.geeksforless.station.web.dto.RouteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RouteController {
 
     private final RouteService routeService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("list")
     public String getRoutesBySearch(@RequestParam String from, @RequestParam String to, @RequestParam(required = false)
@@ -46,9 +48,10 @@ public class RouteController {
     }
 
     @GetMapping("{routeId:\\d+}")
-    public String getRoute(@PathVariable("routeId")  int routeId, Model model) {
+    public String getRoute(@PathVariable("routeId") int routeId, Model model) {
         Route route = routeService.findById(routeId).orElse(null);
         model.addAttribute("route", route);
+        model.addAttribute("schedules", scheduleService.findAllRouteStopsInOrder(routeId));
         return "routes/route";
     }
 

@@ -29,4 +29,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Optional<Schedule> findByIdStationAndRoute(Integer routeId, Integer stationId) {
         return repository.findByRouteIdAndStationId(routeId, stationId);
     }
+
+    @Override
+    public List<Schedule> findAllRouteStopsInOrder(Integer routeId) {
+        return repository.findSchedulesByRouteIdAndOrderByOrderRoute(routeId);
+    }
 }

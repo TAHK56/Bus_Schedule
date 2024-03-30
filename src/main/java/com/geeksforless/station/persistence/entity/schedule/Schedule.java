@@ -39,10 +39,13 @@ public class Schedule {
     @JoinColumn(name = "StationId", nullable = false)
     private Station station;
 
-    @Column(name = "DepartureTime", nullable = false)
+    @Column(name = "OrderRoute", nullable = false)
+    private Integer orderRoute;
+
+    @Column(name = "DepartureTime")
     private LocalTime departureTime;
 
-    @Column(name = "ArrivalTime", nullable = false)
+    @Column(name = "ArrivalTime")
     private LocalTime arrivalTime;
 
     @OneToMany(mappedBy = "scheduleDepartureStation")

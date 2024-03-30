@@ -11,4 +11,6 @@ public interface ScheduleService {
     List<Schedule> findAll();
 
     Optional<Schedule> findByIdStationAndRoute(Integer routeId, Integer stationId);
+
+    List<Schedule> findAllRouteStopsInOrder(Integer routeId);
 }

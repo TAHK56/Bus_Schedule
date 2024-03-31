@@ -67,9 +67,9 @@ VALUES
 ('Olya', 'Petrich', 'admin@gmail.com', 'admin', 'ADMIN');
 
 INSERT INTO Ticket
-(UserId, RouteId, ScheduleDepartureStationId, ScheduleArrivalStationId, Price, TripDate, Status)
+(UserId, RouteId, ScheduleDepartureStationId, ScheduleArrivalStationId, Price, TripDate)
 VALUES
-(1, 1, 2, 3, 123.56, '2024-04-12', TRUE);
+(1, 1, 2, 3, 123.56, '2024-04-12');
 
 
 

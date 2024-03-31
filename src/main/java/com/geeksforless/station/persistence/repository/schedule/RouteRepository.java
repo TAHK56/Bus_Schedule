@@ -11,19 +11,28 @@ import java.util.List;
 public interface RouteRepository extends JpaRepository<Route, Integer> {
 
         @Query(nativeQuery = true, value = """
-                WITH geography AS (SELECT LocationId,
-                                          StationId,
-                                          Location.Name AS Location
-                                   FROM Location
-                                            INNER JOIN Station USING (LocationId)),
-                     routes AS (SELECT *
-                                FROM schedule
-                                         INNER JOIN geography USING (StationId)
-                                WHERE Location IN (:departure, :arrival) AND schedule.DepartureTime < :date)
-                SELECT DISTINCT route.*
-                FROM route
-                WHERE RouteId IN (SELECT RouteId FROM routes)
-                ORDER BY DepartureTime;
+                WITH departureArrive AS (SELECT s1.RouteId,
+                                                s2.StationId AS DepartureStation,
+                                                s1.StationId AS ArrivalStation,
+                                                s2.DepartureTime,
+                                                s1.ArrivalTime
+                                         FROM schedule AS s1
+                                                  INNER JOIN schedule AS s2 ON s1.RouteId = s2.RouteId
+                                         WHERE s2.StationId = :departure
+                                           AND s1.StationId = :arrival),
+                     concreteRoute AS (SELECT route.RouteId,
+                                              BusId,
+                                              Name,
+                                              departureArrive.DepartureStation,
+                                              departureArrive.ArrivalStation,
+                                              departureArrive.DepartureTime,
+                                              departureArrive.ArrivalTime
+                                       FROM route
+                                                INNER JOIN departureArrive USING (RouteId))
+                SELECT RouteId, BusId, Name, DepartureStation, ArrivalStation, DepartureTime, ArrivalTime,\s
+                TIMESTAMPDIFF(SECOND, DepartureTime, CURRENT_TIMESTAMP) AS diff
+                FROM concreteRoute
+                ORDER BY IF(CURRENT_DATE = :date, diff, DepartureTime);
                   """)
         List<Route> findRoutesByDepartureStationAndArrivalStationSortedByDate(String departure, String arrival, String date);
 }

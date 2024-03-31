@@ -5,7 +5,6 @@ import com.geeksforless.station.persistence.entity.user.Customer;
 import com.geeksforless.station.service.CustomerService;
 import com.geeksforless.station.service.RouteService;
 import com.geeksforless.station.service.ScheduleService;
-import com.geeksforless.station.service.StationService;
 import com.geeksforless.station.service.TicketService;
 import com.geeksforless.station.web.dto.TicketDto;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,6 @@ public class TicketController {
     private final TicketService ticketService;
     private final RouteService routeService;
     private final ScheduleService scheduleService;
-    private final StationService stationService;
     private final CustomerService customerService;
 
     @GetMapping("list")
@@ -58,7 +56,6 @@ public class TicketController {
         ticket.setSalesTime(Instant.now());
         ticket.setPrice(ticketDto.price());
         ticket.setTripDate(ticketDto.tripDate());
-        ticket.setStatus(Boolean.TRUE);
         ticket.setUser(customerService.createCustomer(customer));
         ticketService.createTicket(ticket);
         return "redirect:/tickets/%d".formatted(ticket.getId());

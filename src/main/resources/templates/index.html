@@ -18,24 +18,32 @@
             <div class="row">
                 <div class="col">
                    <label for="from">From:
-                       <input type="text" name="from" list="datalistFrom" class="form-control" placeholder="From" id="from" aria-label="From">
-                       <datalist id="datalistFrom">
-                           <option data-th-each="location: ${locations}" data-th-value="${location.getName()}">
-                       </datalist>
+                       <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                               name="from" id="from" >
+                           <option value="default" selected>From</option>
+                           <optgroup th:each="location: ${locations}" th:label="${location.getName()}">
+                               <option th:value="${station.getId()}" th:each="station: ${location.getStations()}" th:text="${#strings.concat(station.getName(), ',',
+                               station.getStreet(), ',', station.getNumberStreet())}"></option>
+                           </optgroup>
+                       </select>
                    </label>
                 </div>
                 <div class="col">
                     <label for="to">To:
-                        <input type="text" class="form-control" list="datalistArrival" placeholder="To" aria-label="To" name="to" id="to">
-                        <datalist id="datalistArrival">
-                            <option data-th-each="location: ${locations}" data-th-value="${location.getName()}">
-                        </datalist>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                name="to" id="to">
+                            <option value="default" selected>To</option>
+                            <optgroup th:each="location: ${locations}" th:label="${location.getName()}" >
+                                <option th:value="${station.getId()}" th:each="station: ${location.getStations()}" th:text="${#strings.concat(station.getName(), ',',
+                               station.getStreet(), ',', station.getNumberStreet())}"></option>
+                            </optgroup>
+                        </select>
                     </label>
 
                 </div>
                 <div class="col">
                     <label for="date">Date:
-                        <input type="datetime-local" name="date" class="form-control" id="date"
+                        <input type="date" name="date" class="form-control" id="date"
                                data-th-min="${#temporals.createNow()}" data-th-max="${#temporals.createNow().plus(T(java.time.Period).ofMonths(1))}">
                     </label>
                 </div>

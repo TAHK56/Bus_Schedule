@@ -9,7 +9,6 @@ public interface TicketService {
 
     List<Ticket> findAll();
 
-    int countSalesTicket(String routeId, String dateTrip);
 
     Optional<Ticket> findById(int ticketId);
 

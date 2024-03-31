@@ -57,7 +57,4 @@ public class Ticket {
     @Column(name = "TripDate", nullable = false)
     private LocalDate tripDate;
 
-    @Column(name = "Status", nullable = false)
-    private Boolean status = false;
-
 }

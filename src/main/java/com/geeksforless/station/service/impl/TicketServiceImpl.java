@@ -21,10 +21,6 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAll();
     }
 
-    @Override
-    public int countSalesTicket(String routeId, String dateTrip) {
-        return ticketRepository.countTicketsByStatus(routeId, dateTrip);
-    }
 
     @Override
     public Optional<Ticket> findById(int ticketId) {

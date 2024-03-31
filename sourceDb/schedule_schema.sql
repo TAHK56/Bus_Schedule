@@ -69,7 +69,6 @@ ScheduleDepartureStationId INT NOT NULL,
 ScheduleArrivalStationId INT NOT NULL,
 Price NUMERIC(10,2) NOT NULL,
 TripDate DATE NOT NULL,
-Status BOOL NOT NULL,
 CONSTRAINT PK_Ticket PRIMARY KEY (TicketId)
 );
 

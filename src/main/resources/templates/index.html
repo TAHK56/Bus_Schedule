@@ -22,7 +22,8 @@
                                name="from" id="from" >
                            <option value="default" selected>From</option>
                            <optgroup th:each="location: ${locations}" th:label="${location.getName()}">
-                               <option th:value="${station.getId()}" th:each="station: ${location.getStations()}" th:text="${#strings.concat(station.getName(), ',',
+                               <option th:value="${station.getId()}" th:each="station: ${location.getStations()}"
+                                       th:text="${#strings.concat(station.getName(), ',',
                                station.getStreet(), ',', station.getNumberStreet())}"></option>
                            </optgroup>
                        </select>

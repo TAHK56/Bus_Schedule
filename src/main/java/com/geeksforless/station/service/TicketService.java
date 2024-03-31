@@ -13,4 +13,6 @@ public interface TicketService {
     Optional<Ticket> findById(int ticketId);
 
     Ticket createTicket(Ticket ticket);
+
+    int findFreeSeats(Integer routeId, Integer departureStationId, Integer arrivalStationId, String tripDate);
 }

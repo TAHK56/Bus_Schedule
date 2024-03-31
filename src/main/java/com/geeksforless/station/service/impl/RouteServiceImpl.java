@@ -22,7 +22,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<Route> findRoutesByDepartureStationAndArrivalStation(String departure, String arrival, String date) {
+    public List<Route> findRoutesByDepartureStationAndArrivalStation(Integer departure, Integer arrival, String date) {
         return routeRepository.findRoutesByDepartureStationAndArrivalStationSortedByDate(departure, arrival, date);
     }
 

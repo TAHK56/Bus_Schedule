@@ -19,6 +19,7 @@
         <th scope="col">Arrival Station</th>
         <th scope="col">ArrivalTime</th>
         <th scope="col">DepartureTime</th>
+        <th scope="col">Seats</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         <td data-th-text="${route.getArrivalStation().getLocation().getName()}"></td>
         <td data-th-text="${route.getArrivalTime()}"></td>
         <td data-th-text="${route.getDepartureTime()}"></td>
+        <td data-th-text="${seats.getOrDefault(route.getId(), route.getBus().getSeats())}"></td>
     </tr>
     </tbody>
 </table>

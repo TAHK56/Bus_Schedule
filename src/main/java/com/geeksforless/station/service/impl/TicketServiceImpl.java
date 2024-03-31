@@ -31,4 +31,10 @@ public class TicketServiceImpl implements TicketService {
     public Ticket createTicket(Ticket ticket) {
         return ticketRepository.save(ticket);
     }
+
+    @Override
+    public int findFreeSeats(Integer routeId, Integer departureStationId, Integer arrivalStationId, String tripDate) {
+        return ticketRepository.countTicketsByTripDateAndRouteAndDepartureStationAndArrivalStation(routeId,
+                departureStationId, arrivalStationId, tripDate);
+    }
 }

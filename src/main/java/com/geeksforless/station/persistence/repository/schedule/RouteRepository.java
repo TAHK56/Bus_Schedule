@@ -34,5 +34,5 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
                 FROM concreteRoute
                 ORDER BY IF(CURRENT_DATE = :date, diff, DepartureTime);
                   """)
-        List<Route> findRoutesByDepartureStationAndArrivalStationSortedByDate(String departure, String arrival, String date);
+        List<Route> findRoutesByDepartureStationAndArrivalStationSortedByDate(Integer departure, Integer arrival, String date);
 }

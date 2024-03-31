@@ -3,6 +3,7 @@ package com.geeksforless.station.web.controller;
 import com.geeksforless.station.persistence.entity.schedule.Route;
 import com.geeksforless.station.service.RouteService;
 import com.geeksforless.station.service.ScheduleService;
+import com.geeksforless.station.service.TicketService;
 import com.geeksforless.station.web.dto.RouteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/routes")
@@ -20,20 +24,31 @@ public class RouteController {
 
     private final RouteService routeService;
     private final ScheduleService scheduleService;
+    private final TicketService ticketService;
 
     @GetMapping("list")
-    public String getRoutesBySearch(@RequestParam String from, @RequestParam String to, @RequestParam(required = false)
-    String date, Model model) {
+    public String getRoutesBySearch(@RequestParam int from, @RequestParam int to, @RequestParam String date,
+                                    Model model) {
+        var routes = routeService.findRoutesByDepartureStationAndArrivalStation(from, to, date);
+        Map<Integer, Integer> seats = new LinkedHashMap<>();
+        routes.forEach(route -> seats.put(route.getId(), ticketService.findFreeSeats(route.getId(), from, to, date)));
         model.addAttribute("from", from);
         model.addAttribute("to", to);
         model.addAttribute("date", date);
-        model.addAttribute("routes", routeService.findRoutesByDepartureStationAndArrivalStation(from, to, date));
+        model.addAttribute("seats", seats);
+        model.addAttribute("routes", routes);
         return "routes/list";
     }
 
     @GetMapping
     public String getAllRoutes(Model model) {
+        var routes = routeService.findAll();
+        Map<Integer, Integer> seats = new LinkedHashMap<>();
+        routes.forEach(route -> seats.put(route.getId(),
+                ticketService.findFreeSeats(route.getId(), route.getDepartureStation().getId(),
+                        route.getArrivalStation().getId(), "9999-12-31")));
         model.addAttribute("routes", routeService.findAll());
+        model.addAttribute("seats", seats);
         return "routes/list";
     }
 

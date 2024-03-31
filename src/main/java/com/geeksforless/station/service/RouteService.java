@@ -9,7 +9,7 @@ public interface RouteService {
 
     List<Route> findAll();
 
-    List<Route> findRoutesByDepartureStationAndArrivalStation(String departure, String arrival, String date);
+    List<Route> findRoutesByDepartureStationAndArrivalStation(Integer departure, Integer arrival, String date);
 
     Route createRoute(Route route);
 
